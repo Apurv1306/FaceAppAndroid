@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.3.1"
-        // NO chaquopy plugin classpath here if using plugins DSL
+        // DO NOT include chaquopy plugin classpath here when using plugins DSL
     }
 }
 
