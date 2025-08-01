@@ -1,0 +1,10 @@
+flask
+flask-cors
+opencv-python
+numpy
+pandas
+fpdf
+apscheduler
+edge-tts
+pygame
+requests
