@@ -1,0 +1,54 @@
+name: Build Android APK with Flask backend
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ANDROID_SDK_ROOT: ${{ runner.temp }}/android-sdk
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: 11
+
+    - name: Install Android SDK, NDK and build tools
+      uses: android-actions/setup-android@v2
+      with:
+        api-level: 33
+        build-tools: 33.0.2
+        ndk: 25.1.8937393
+        cache: true
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.8
+
+    - name: Install Python requirements (Chaquopy deps)
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r flask_backend/requirements.txt
+
+    - name: Grant execute permission on gradlew
+      run: chmod +x android/gradlew
+
+    - name: Build APK
+      working-directory: android
+      run: ./gradlew assembleDebug --stacktrace
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: FaceApp-debug-apk
+        path: android/app/build/outputs/apk/debug/app-debug.apk
