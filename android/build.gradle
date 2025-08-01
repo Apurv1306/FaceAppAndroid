@@ -1,15 +1,16 @@
-// android/build.gradle
+// android/build.gradle - Top-level Gradle build file
 
 buildscript {
     repositories {
         google()
         mavenCentral()
-        // Chaquopy plugin repository to resolve plugin dependency
+        // Add Chaquopy maven repo to resolve plugin dependencies
         maven { url "https://chaquo.com/maven" }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.3.1"
-        classpath "com.chaquo.python:gradle:10.2.0"  // Chaquopy Gradle plugin version
+        // Use a stable Chaquopy version available in the repo (e.g., 10.0.1)
+        classpath "com.chaquo.python:gradle:10.0.1"
     }
 }
 
@@ -17,6 +18,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://chaquo.com/maven" } // Also add here for normal dependencies if any
+        // Chaquopy maven repo also here for dependencies
+        maven { url "https://chaquo.com/maven" }
     }
 }
