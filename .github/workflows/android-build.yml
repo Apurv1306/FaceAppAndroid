@@ -14,20 +14,21 @@ jobs:
       ANDROID_SDK_ROOT: ${{ github.workspace }}/android-sdk
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Set up JDK 17
+    - name: Setup JDK 17
       uses: actions/setup-java@v4
       with:
         distribution: temurin
         java-version: 17
 
-    - name: Install Android SDK Command-line tools and packages
+    - name: Install Android SDK command-line tools and packages
       run: |
+        echo "Installing Android SDK command-line tools..."
         mkdir -p $ANDROID_SDK_ROOT/cmdline-tools
         cd $ANDROID_SDK_ROOT/cmdline-tools
-        curl -o commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+        curl -sSfLo commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
         unzip -q commandlinetools.zip
         rm commandlinetools.zip
         mv cmdline-tools latest
@@ -45,43 +46,39 @@ jobs:
         echo "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin" >> $GITHUB_PATH
         echo "$ANDROID_SDK_ROOT/ndk/25.1.8937393" >> $GITHUB_PATH
 
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.8
-
-    - name: Install Python Dependencies
+    - name: Setup Gradle Wrapper Scripts and Binary
       run: |
-        python -m pip install --upgrade pip
-        pip install -r flask_backend/requirements.txt
-
-    - name: Ensure Gradle Wrapper is present and executable
-      run: |
-        if [ ! -f android/gradlew ]; then
-          echo "Gradle wrapper not found, setting up..."
-          mkdir -p android/gradle/wrapper
-          curl -L -o gradle.zip https://services.gradle.org/distributions/gradle-7.4.2-bin.zip
-          unzip -p gradle.zip gradle-7.4.2/lib/gradle-wrapper.jar > android/gradle/wrapper/gradle-wrapper.jar
-          rm gradle.zip
-          curl -L -o android/gradlew https://raw.githubusercontent.com/gradle/gradle/v7.4.2/gradle/wrapper/gradlew
-          chmod +x android/gradlew
-          curl -L -o android/gradlew.bat https://raw.githubusercontent.com/gradle/gradle/v7.4.2/gradle/wrapper/gradlew.bat
-          cat <<EOF > android/gradle/wrapper/gradle-wrapper.properties
+        mkdir -p android/gradle/wrapper
+        echo "Downloading Gradle distribution zip..."
+        curl -sSfLo gradle.zip https://services.gradle.org/distributions/gradle-7.4.2-bin.zip
+        unzip -p gradle.zip gradle-7.4.2/lib/gradle-wrapper.jar > android/gradle/wrapper/gradle-wrapper.jar
+        rm gradle.zip
+        curl -sSfLo android/gradlew https://raw.githubusercontent.com/gradle/gradle/v7.4.2/gradle/wrapper/gradlew
+        chmod +x android/gradlew
+        curl -sSfLo android/gradlew.bat https://raw.githubusercontent.com/gradle/gradle/v7.4.2/gradle/wrapper/gradlew.bat
+        cat <<EOF > android/gradle/wrapper/gradle-wrapper.properties
 distributionBase=GRADLE_USER_HOME
 distributionPath=wrapper/dists
 zipStoreBase=GRADLE_USER_HOME
 zipStorePath=wrapper/dists
 distributionUrl=https\://services.gradle.org/distributions/gradle-7.4.2-bin.zip
 EOF
-        else
-          chmod +x android/gradlew
-        fi
 
-    - name: Build APK
+    - name: Setup Python 3.8
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.8
+
+    - name: Install Python dependencies for Flask backend (Chaquopy)
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r flask_backend/requirements.txt
+
+    - name: Build Android APK with Gradle
       run: ./gradlew assembleDebug --stacktrace
       working-directory: android
 
-    - name: Upload APK Artifact
+    - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
         name: FaceApp-debug-apk
