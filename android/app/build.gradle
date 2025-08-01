@@ -1,8 +1,6 @@
-// android/app/build.gradle
-
 plugins {
     id 'com.android.application'
-    id 'com.chaquo.python'  // Version managed in settings.gradle
+    id 'com.chaquo.python'  // No version here; version managed in settings.gradle
 }
 
 android {
