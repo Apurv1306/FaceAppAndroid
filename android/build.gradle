@@ -5,6 +5,7 @@ buildscript {
     maven { url 'https://chaquo.com/maven' }
   }
   dependencies {
+    // You can keep this, but it's often more modern to use the 'plugins' block
     classpath 'com.android.tools.build:gradle:7.3.1'
   }
 }
