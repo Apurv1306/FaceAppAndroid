@@ -1,19 +1,18 @@
 buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://chaquo.com/maven" }  // Required for Chaquopy plugin deps
-    }
-    dependencies {
-        classpath "com.android.tools.build:gradle:7.3.1"  // Android Gradle plugin ONLY
-        // DO NOT declare Chaquopy plugin here
-    }
+  repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://chaquo.com/maven' }
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:7.3.1'
+  }
 }
 
 allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://chaquo.com/maven" }
-    }
+  repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://chaquo.com/maven' }
+  }
 }
