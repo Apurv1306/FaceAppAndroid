@@ -1,14 +1,16 @@
-// android/settings.gradle
+// android/settings.gradle - Gradle settings file to configure plugin management
 
 pluginManagement {
     repositories {
         gradlePluginPortal()
         google()
         mavenCentral()
-        maven { url "https://chaquo.com/maven" }  // Add Chaquopy repo here for plugin resolution
+        // Chaquopy plugin repository
+        maven { url "https://chaquo.com/maven" }
     }
     plugins {
-        id "com.chaquo.python" version "10.2.0" apply false
+        // Use same Chaquopy plugin version as above
+        id "com.chaquo.python" version "10.0.1" apply false
     }
 }
 
