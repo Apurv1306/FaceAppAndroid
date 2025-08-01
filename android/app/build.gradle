@@ -1,7 +1,8 @@
 plugins {
-    id 'com.android.application'
-    id 'com.chaquo.python'  // No version here, it's set in settings.gradle
+  id 'com.android.application'
+  id 'com.chaquo.python'
 }
+
 
 android {
     compileSdkVersion 33
