@@ -1,19 +1,19 @@
 buildscript {
-  repositories {
-    google()
-    mavenCentral()
-    maven { url 'https://chaquo.com/maven' }
-  }
-  dependencies {
-    // You can keep this, but it's often more modern to use the 'plugins' block
-    classpath 'com.android.tools.build:gradle:7.3.1'
-  }
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://chaquo.com/maven" }
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.3.1"
+        // NO chaquopy plugin classpath here if using plugins DSL
+    }
 }
 
 allprojects {
-  repositories {
-    google()
-    mavenCentral()
-    maven { url 'https://chaquo.com/maven' }
-  }
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://chaquo.com/maven" }
+    }
 }
