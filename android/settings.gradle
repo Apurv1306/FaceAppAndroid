@@ -1,8 +1,11 @@
+// android/settings.gradle
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven { url "https://chaquo.com/maven" }  // Add Chaquopy repo here for plugin resolution
     }
     plugins {
         id "com.chaquo.python" version "10.2.0" apply false
