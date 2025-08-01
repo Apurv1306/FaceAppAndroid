@@ -1,7 +1,10 @@
 plugins {
     id 'com.android.application'
-    id 'com.chaquo.python' version '10.2.0'
+    id 'com.chaquo.python'  // no version here, version is managed in settings.gradle
 }
+
+// Your android and python config stay as before
+
 
 android {
     compileSdkVersion 33
