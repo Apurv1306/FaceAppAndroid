@@ -1,5 +1,3 @@
-// android/build.gradle - Top-level gradle
-
 buildscript {
     repositories {
         google()
@@ -7,8 +5,8 @@ buildscript {
         maven { url "https://chaquo.com/maven" }
     }
     dependencies {
+        // Only the Android Gradle Plugin here — do NOT add Chaquopy here
         classpath "com.android.tools.build:gradle:7.3.1"
-        // DO NOT include Chaquopy plugin here to avoid conflict
     }
 }
 
