@@ -1,3 +1,5 @@
+// android/build.gradle - Top-level gradle
+
 buildscript {
     repositories {
         google()
@@ -6,7 +8,7 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.3.1"
-        // NO Chaquopy classpath here
+        // DO NOT include Chaquopy plugin here to avoid conflict
     }
 }
 
