@@ -19,13 +19,14 @@ public class MainActivity extends AppCompatActivity {
             Python.start(new AndroidPlatform(this));
         }
         Python py = Python.getInstance();
+
         new Thread(() -> {
-            py.getModule("python-app") // your python file name without .py
-              .callAttr("app")
-              .callAttr("run",
-                Kwarg.of("host", "0.0.0.0"),
-                Kwarg.of("port", 5000),
-                Kwarg.of("debug", false));
+            py.getModule("python-app") // your Python file name without .py
+                .callAttr("app")
+                .callAttr("run",
+                    Kwarg.of("host", "0.0.0.0"),
+                    Kwarg.of("port", 5000),
+                    Kwarg.of("debug", false));
         }).start();
 
         setContentView(R.layout.activity_main);
