@@ -1,7 +1,6 @@
 plugins {
-  id 'com.android.application'
-  // Make sure this plugin is applied
-  id 'com.chaquo.python'
+    id 'com.android.application'
+    id 'com.chaquo.python'
 }
 android {
     compileSdkVersion 33
