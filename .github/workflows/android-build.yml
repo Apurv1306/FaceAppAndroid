@@ -29,39 +29,33 @@ jobs:
         mkdir -p $ANDROID_SDK_ROOT/cmdline-tools
         cd $ANDROID_SDK_ROOT/cmdline-tools
 
-        # Download latest command line tools (adjust link if needed)
+        # Download latest command line tools
         curl -o commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
         
         unzip -q commandlinetools.zip
         rm commandlinetools.zip
 
-        # Move extracted cmdline-tools to a 'latest' folder to imitate standard layout
+        # Move extracted to 'latest' folder
         mv cmdline-tools latest
 
-        # Set PATH to use sdkmanager
+        # Add sdkmanager to PATH
         export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
 
         # Accept licenses
         yes | sdkmanager --sdk_root=$ANDROID_SDK_ROOT --licenses
 
-        # Update sdkmanager itself
-        sdkmanager --sdk_root=$ANDROID_SDK_ROOT --update
-
-        # Install platform tools, build tools, platforms and ndk
+        # Install required packages
         sdkmanager --sdk_root=$ANDROID_SDK_ROOT \
           "platform-tools" \
           "platforms;android-33" \
           "build-tools;33.0.2" \
           "ndk;25.1.8937393"
 
-    - name: Set environment variables for Android build
+    - name: Add Android tools to PATH
       run: |
-        echo "Add Android SDK to PATH"
         echo "$ANDROID_SDK_ROOT/platform-tools" >> $GITHUB_PATH
         echo "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin" >> $GITHUB_PATH
         echo "$ANDROID_SDK_ROOT/ndk/25.1.8937393" >> $GITHUB_PATH
-        echo "$ANDROID_SDK_ROOT/build-tools/33.0.2" >> $GITHUB_PATH
-        echo "$ANDROID_SDK_ROOT/platforms/android-33" >> $GITHUB_PATH
 
     - name: Set up Python 3.8
       uses: actions/setup-python@v5
