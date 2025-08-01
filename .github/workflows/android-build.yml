@@ -45,7 +45,7 @@ jobs:
             "build-tools;33.0.2" \
             "ndk;25.1.8937393"
 
-      - name: Add Android tools to PATH
+      - name: Add Android SDK tools to PATH
         run: |
           echo "$ANDROID_SDK_ROOT/platform-tools" >> $GITHUB_PATH
           echo "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin" >> $GITHUB_PATH
@@ -56,12 +56,12 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install Python requirements (backend dependencies)
+      - name: Install Python dependencies for backend
         run: |
           python -m pip install --upgrade pip
           pip install -r flask_backend/requirements.txt
 
-      - name: Grant execute permission on gradlew
+      - name: Ensure gradlew is executable
         run: chmod +x android/gradlew
 
       - name: Build APK
