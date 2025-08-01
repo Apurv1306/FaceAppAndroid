@@ -1,6 +1,6 @@
 plugins {
     id 'com.android.application'
-    id 'com.chaquo.python'  // no version here, version is managed in settings.gradle
+    id 'com.chaquo.python'
 }
 
 // Your android and python config stay as before
