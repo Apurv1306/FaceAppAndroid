@@ -6,7 +6,9 @@ pluginManagement {
     maven { url "https://chaquo.com/maven" }
   }
   plugins {
-    id "com.chaquo.python" version "10.0.1" apply false
+    // Update the version of the Chaquo Python plugin here
+    // For AGP 7.3.1, you should use a newer Chaquo version like 14.0.0 or later.
+    id "com.chaquo.python" version "14.0.0" apply false
   }
 }
 
